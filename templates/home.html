@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div style="margin: 20px 0 20px 0">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+            Add scholar
+        </button>
+        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updateModal">
+            Update scholar
+        </button>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+            Delete scholar
+        </button>
+
+    </div>
+    <table class="table table-hover" id="table">
+        <thead>
+            <tr>
+                <th scope="col">Ronin Address</th>
+                <th scope="col">First name</th>
+                <th scope="col">Last name</th>
+                <th scope="col">Scholar share</th>
+                <th scope="col">Manager share</th>
+                <th scope="col">Total Slp</th>
+                <th scope="col">Scholar Slp</th>
+                <th scope="col">Manager Slp</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for scholar in g.manager.scholars %}
+            <tr>
+                <td>{{ scholar.ronin_address }}</td>
+                <td>{{ scholar.first_name }}</td>
+                <td>{{ scholar.last_name }}</td>
+                <td>{{ scholar.scholar_share }}</td>
+                <td>{{ scholar.manager_share }}</td>
+                <td>{{ scholar.total_slp }}</td>
+                <td>{{ scholar.scholar_share * scholar.total_slp / 100 }}</td>
+                <td>{{ scholar.manager_share * scholar.total_slp / 100 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Add Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModalLabel">Add scholar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="http://localhost:5000/add-scholar" method="post">
+
+                    <div class="mb-3">
+                        <label for="ronin" class="form-label">Ronin Address</label>
+                        <input name="ronin" class="form-control" id="ronin">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="first" class="form-label">First name</label>
+                        <input name="first" class="form-control" id="first">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="last" class="form-label">Last name</label>
+                        <input name="last" class="form-control" id="last">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="number" class="form-label">Scholar Share</label>
+                        <input type="number" name="scholar_share" class="form-control" id="scholar_share">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="number" class="form-label">Manager Share</label>
+                        <input type="number" name="manager_share" class="form-control" id="manager_share">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="number" class="form-label">Total Slp</label>
+                        <input type="number" name="total_slp" class="form-control" id="total_slp">
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Update Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel">Update scholar</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="http://localhost:5000/update-scholar" method="post">
+
+                    <div class="mb-3">
+                        <label for="update-ronin" class="form-label">Ronin Address</label>
+                        <input name="update-ronin" class="form-control" id="update-ronin">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="update-first" class="form-label">First name</label>
+                        <input name="update-first" class="form-control" id="update-first">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="update-last" class="form-label">Last name</label>
+                        <input name="update-last" class="form-control" id="update-last">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="update-scholar_share" class="form-label">Scholar Share</label>
+                        <input type="number" name="update-scholar_share" class="form-control" id="update-scholar_share">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="update_manager_share" class="form-label">Manager Share</label>
+                        <input type="number" name="update-manager_share" class="form-control" id="update-manager_share">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="update-total_slp" class="form-label">Total Slp</label>
+                        <input type="number" name="update-total_slp" class="form-control" id="update-total_slp">
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirm delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="http://localhost:5000/delete-scholar" method="post">
+                    <p>Delete this scholar with ronin address:</p>
+                    <input name="delete-ronin" id="delete-ronin" />
+                    <div style="margin-top: 20px">
+                        <button class="btn btn-danger">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock%}

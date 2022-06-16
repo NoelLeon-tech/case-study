@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Sign up{% endblock %}
+{% block content %}
+<div class='container' style="max-width: 500px">
+    <h1>Sign up</h1>
+
+    <form action="http://localhost:5000/sign-up" method="post">
+        <div class="mb-3">
+            <label for="first_name" class="form-label">First name</label>
+            <input name="first_name" class="form-control" id="first_name">
+        </div>
+
+        <div class="mb-3">
+            <label for="last_name" class="form-label">Last name</label>
+            <input name="last_name" class="form-control" id="last_name">
+        </div>
+
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input name="email" class="form-control" id="email">
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input name="password" class="form-control" id="password">
+        </div>
+
+        <button class="btn btn-primary">Sign up </button>
+        <button class="btn btn-secondary" type="reset">Clear</button>
+    </form>
+</div>
+{% endblock %}
